@@ -1,82 +1,58 @@
-<!-- //when the page loads:
+  var targetNumber = 53;
 
- var guessesLeft = 10;
- var losses = 0;
- var wins = 0;
- var previousGuesses = [];
- var letterGuess; //String.fromCharCode();
- var secretWord;
+  $("#number-to-guess").text(targetNumber);
 
- // create an array of possible words
- var wordbank = ["meat", "woodworking", "hunting", "whisky", "breakfast", "jazz", "libertarianism"];
- // secret word is picked by computer randomly out of the array of possible words
- var secretWord = wordbank[Math.floor(Math.random() * wordbank.length)];
- console.log(secretWord)  
- // the screen shows a number of blanks equal to the number of letters in secret word //  
- // treat string like an array, loop over it, and for each letter, display the following string: "_" -->
- var previousGuesses = [];
- for (var i=0; i<secretWord.length; i++) {
- previousGuesses[i]= "-";
- }
- console.log(previousGuesses)
- // }
- //listen for this event - when a user types a key:
-document.onkeyup = function(event) {
-var letterGuess = String.fromCharCode(event.keyCode).toLowerCase();
-for (var i = 0; i < secretWord.length; i++) {
-if (letterGuess === secretWord[i]) {
-alert("match!");
-}
-}
-}
+  var counter = 0;
 
- // store the key in a variable // letterGuess = String.fromCharCode(event.keyCode).toLowerCase();
- // var letterGuess = String.fromCharCode(event.keyCode).toLowerCase();
- //the user has not guessed this letter already
- // matches (guessedChar, word) {
- //   //indexOf
- // }
+  // Now for the hard part. Creating multiple crystals each with their own unique number value.
 
+  // We begin by expanding our array to include four options.
+  var numberOptions = [10, 5, 3, 7];
 
- 
+  // Next we create a for loop to create crystals for every numberOption.
+  for (var i = 0; i < numberOptions.length; i++) {
 
+    // For each iteration, we will create an imageCrystal
+    var imageCrystal = $("<img>");
 
-//   if(letterGuess is not found in the previousGuesses array) {
+    // First each crystal will be given the class ".crystal-image".
+    // This will allow the CSS to take effect.
+    imageCrystal.addClass("crystal-image");
 
-//      add the letterGuess into the previousGuesses array;
+    // Each imageCrystal will be given a src link to the crystal image
+    imageCrystal.attr("src", "https://cdn.playbuzz.com/cdn/35910209-2844-45c0-b099-f4d82878d54f/00261fda-4062-4096-81fd-8cf96b9034e8.jpg");
 
-//      console.log("new guess");
+    // Each imageCrystal will be given a data attribute called data-crystalValue.
+    // This data attribute will be set equal to the array value.
+    imageCrystal.attr("data-crystalvalue", numberOptions[i]);
 
-//      if (the letter is in the secret word - aka it was a good guess) {
+    // Lastly, each crystal image (with all it classes and attributes) will get added to the page.
+    $("#crystals").append(imageCrystal);
+  }
 
-//          reveal the letter instead of blanks (what if letter occurs more than once?)
-   
-//          if(the word is completely guessed) {
-//               console.log("the user wins!!");
-//               wins++;
-//               reset the secret word
-//               reset the number of guesses available
-//               reset the number of blanks shown
-//               reset the previous guesses array
-//          }
-//      }
-//      else {
-//         guessesLeft--;
-       
-//         if(guessesLeft === 0) {
-//              console.log("you lost");
-//              losses++;
-//              reset the secret word
-//              reset the number of guesses available
-//              reset the number of blanks shown
-//              reset the previous guesses array
-//         }
+  // This time, our click event applies to every single crystal on the page. Not just one.
+  $(".crystal-image").on("click", function() {
 
-//      }
-//   }
-//   else {
-//      console.log("this is a duplicate guess");
-//   }
-// }
+    // Determining the crystal's value requires us to extract the value from the data attribute.
+    // Using the $(this) keyword specifies that we should be extracting the crystal value of the clicked crystal.
+    // Using the .attr("data-crystalvalue") allows us to grab the value out of the "data-crystalvalue" attribute.
+    // Since attributes on HTML elements are strings, we must convert it to an integer before adding to the counter
+    
+    var crystalValue = ($(this).attr("data-crystalvalue"));
+    crystalValue = parseInt(crystalValue);
+    // We then add the crystalValue to the user's "counter" which is a global variable.
+    // Every click, from every crystal adds to the global counter.
+    counter += crystalValue;
 
-// // How to choose random element out of array : 01-17-LM-Class-Content/Tu-Th-Sat-In-Class-Content/03-intro-js-hangman-dom/3.2-02-02-2017/Activities/09-RPS-Coded/rps-9.html, line 31 -->
+    // All of the same game win-lose logic applies. So the rest remains unchanged.
+    alert("New score: " + counter);
+
+    if (counter === targetNumber) {
+      alert("You win!");
+    }
+
+    else if (counter >= targetNumber) {
+      alert("You lose!!");
+    }
+
+  });
