@@ -1,4 +1,4 @@
-  var targetNumber = 53;
+  var targetNumber = Math.floor(Math.random()*(120-19)) + 19;
 
   $("#number-to-guess").text(targetNumber);
 
