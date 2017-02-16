@@ -55,16 +55,22 @@
     if (counter === targetNumber) {
       alert("You win!");
       $("#wins").html(wins++);
+      targetNumber=null;
+      targetNumber=Math.floor(Math.random()*(120-19)) + 19;
+      $("#number-to-guess").text(targetNumber);
+      counter=null;
+      counter=0;
     }
 
     else if (counter >= targetNumber) {
       alert("You lose!!");
       $("#losses").html(losses++);
+      targetNumber=null;
+      targetNumber=Math.floor(Math.random()*(120-19)) + 19;
+      $("#number-to-guess").text(targetNumber);
+      counter=null;
+      counter=0;
     }
 
-  //     restartGame: function () {
-  // 	$("#wins").html(wins);
-  // 	$("#losses").html(losses);
-  // }
 
   });
