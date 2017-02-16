@@ -1,3 +1,8 @@
+  var wins=1;
+  var losses=1;
+
+
+
   var targetNumber = Math.floor(Math.random()*(120-19)) + 19;
 
   $("#number-to-guess").text(targetNumber);
@@ -24,7 +29,7 @@
 
     // Each imageCrystal will be given a data attribute called data-crystalValue.
     // This data attribute will be set equal to the array value.
-    imageCrystal.attr("data-crystalvalue", numberOptions[i]);
+    imageCrystal.attr("data-crystalvalue", numberOptions[Math.floor(Math.random()*numberOptions.length)]);
 
     // Lastly, each crystal image (with all it classes and attributes) will get added to the page.
     $("#crystals").append(imageCrystal);
@@ -49,10 +54,17 @@
 
     if (counter === targetNumber) {
       alert("You win!");
+      $("#wins").html(wins++);
     }
 
     else if (counter >= targetNumber) {
       alert("You lose!!");
+      $("#losses").html(losses++);
     }
+
+  //     restartGame: function () {
+  // 	$("#wins").html(wins);
+  // 	$("#losses").html(losses);
+  // }
 
   });
